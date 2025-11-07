@@ -1,0 +1,441 @@
+/* Carousel container */
+.carousel-container {
+    position: relative;
+    width: 90%;
+    max-width: 1800px; /* big box size */
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/* Cards wrapper */
+.carousel-cards {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    justify-content: center; /* ensures front card is centered */
+}
+
+/* Individual card */
+.carousel-cards .card {
+    min-width: 100%;
+    flex-shrink: 0;
+    cursor: pointer;
+
+    /* Big box style */
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;  /* padding so quotes stay inside */
+    box-sizing: border-box;
+
+    /* Colors */
+    background-color: #f0f8ff; /* default light blue */
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+
+    /* Text styling */
+    font-size: 1.5rem;
+    font-style: italic;
+    text-align: center;
+    position: relative;
+
+    /* smooth scaling */
+    transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease;
+}
+
+/* Different colors for each card */
+.carousel-cards .card:nth-child(1) { background-color: #f0f8ff; }  /* AliceBlue */
+.carousel-cards .card:nth-child(2) { background-color: #ffe4e1; }  /* MistyRose */
+.carousel-cards .card:nth-child(3) { background-color: #e6e6fa; }  /* Lavender */
+.carousel-cards .card:nth-child(4) { background-color: #f5f5dc; }  /* Beige */
+.carousel-cards .card:nth-child(5) { background-color: #fafad2; }  /* LightGoldenRodYellow */
+.carousel-cards .card:nth-child(6) { background-color: #f0fff0; }  /* Honeydew */
+.carousel-cards .card:nth-child(7) { background-color: #fff0f5; }  /* LavenderBlush */
+.carousel-cards .card:nth-child(8) { background-color: #f5f5f5; }  /* WhiteSmoke */
+.carousel-cards .card:nth-child(9) { background-color: #e0ffff; }  /* LightCyan */
+
+/* Quotes inside card */
+.carousel-cards .card::before,
+.carousel-cards .card::after {
+    content: '"';
+    font-size: 2rem;
+    color: #0b1e5c;
+    position: absolute;
+}
+
+.carousel-cards .card::before {
+    top: 10px;
+    left: 15px;
+}
+
+.carousel-cards .card::after {
+    bottom: 10px;
+    right: 15px;
+}
+
+/* Front card scaling */
+.carousel-cards .card.active {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* Cards behind front */
+.carousel-cards .card:not(.active) {
+    transform: scale(0.95);
+    opacity: 0.6;
+}
+
+/* Controls */
+.carousel-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    gap: 20px;
+}
+
+.carousel-controls button {
+    padding: 8px 16px;
+    font-size: 1rem;
+    border: none;
+    background-color: rgba(12, 63, 191, 0.9);
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#indicator {
+    font-weight: bold;
+}
+
+
+/* ================= UI Fix Section ================= */
+/* Ensure body does not overflow */
+/* Apply globally */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+/* Apply globally */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 15px 20px; /* reduced for mobile */
+    }
+}
+
+.navbar-right,
+.right-link {
+    flex-shrink: 1;  /* allows it to shrink instead of overflowing */
+    white-space: nowrap; /* optional: prevents text wrapping */
+}
+
+/* Make images responsive */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Make hero logo responsive */
+.hero-logo {
+    width: 800px;
+    max-width: 90%; /* ensures it doesn't exceed screen */
+}
+
+/* Flex containers wrap instead of overflowing */
+.cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* Adjust navbar padding for small screens */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 15px 20px;
+    }
+}
+
+/* ================= Flashcards Section ================= */
+.flashcards {
+    text-align: center;
+    padding: 50px 20px;
+    background-color: #f8f9fa; /* light background */
+    align-items: center;
+}
+
+.flashcards h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: #0b1e5c; /* dark blue */
+}
+
+.cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    width: 250px;      /* fixed width for uniformity */
+    height: 150px;     /* fixed height for uniformity */
+    display: flex;     /* make card a flex container */
+    justify-content: center; /* horizontal center */
+    align-items: center;     /* vertical center */
+    padding: 20px;     /* padding inside card */
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #0b1e5c;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    text-align: center; /* center multi-line text */
+    overflow-wrap: break-word; /* wrap long text */
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+/* ================= Navbar ================= */
+
+.navbar {
+    position: fixed; /* stays at the top */
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px; /* internal spacing */
+    background: rgb(12, 63, 191); /* semi-transparent blue */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3); /* subtle shadow */
+    z-index: 1000;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* Navbar Left */
+.left {
+    display: flex;
+    align-items: center;
+}
+
+/* Logo image fix */
+
+
+
+@media (max-width: 768px) {
+    .logo-image {
+        height: 40px;  /* smaller logo on mobile */
+        margin-right: 8px;
+    }
+}
+
+.left .logo-text {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+/* Navbar Right */
+.right-link {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* spacing between links */
+    flex-wrap: wrap; /* allow wrapping on small screens */
+}
+
+.right-link a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px 12px;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.right-link a:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 15px 20px;
+    }
+
+    .right-link {
+        gap: 10px;
+    }
+
+    .left .logo-text {
+        font-size: 1.4rem;
+    }
+}
+
+/* ================= Global Font ================= */
+body {
+    font-family: "Noto Sans Arabic", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-weight: 400; 
+    color: #0b1e5c; /* dark blue for all text */
+    margin: 0;
+    padding: 0;
+}
+
+/* ================= Hero Section ================= */
+.hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; /* cover full screen */
+    text-align: center;
+    background-color: #fff; /* white background */
+    position: relative;
+    padding: 10px;
+}
+
+.hero-logo {
+    width: 600px;
+    max-width: 90%;
+    margin-top: 40px; /* reduce this from 100px */
+    margin-bottom: 10px;
+    opacity: 0;
+    transform: scale(1);
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+
+.hero-logo.visible {
+    opacity: 1;
+    transform: scale(1.05); /* slightly bigger on fade in */
+}
+
+/* Main heading */
+.hero h1 {
+    font-size: 4rem; /* bigger heading */
+    color: #050333; /* dark blue heading */
+    margin-left: 100px;
+    margin-right: 100px;
+    font-weight: bold;
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 1.2s ease, transform 1.2s ease;
+}
+
+/* Welcome text below main heading */
+.hero .welcome-text {
+    font-size: 3rem;
+    margin-top: 20px;
+    color: #0b1e5c;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+/* Visible classes for JS fade-in */
+.hero h1.visible,
+.hero .welcome-text.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ================= Responsive adjustments ================= */
+@media (max-width: 1024px) {
+    .hero-logo { width: 600px; }
+    .hero h1 { font-size: 3rem; }
+    .hero .welcome-text { font-size: 2.5rem; }
+}
+
+@media (max-width: 768px) {
+    .hero-logo { width: 400px; }
+    .hero h1 { font-size: 2.5rem; }
+    .hero .welcome-text { font-size: 2rem; }
+}
+
+@media (max-width: 480px) {
+    .hero-logo { width: 250px; }
+    .hero h1 { font-size: 2rem; }
+    .hero .welcome-text { font-size: 1.5rem; }
+}
+
+/* ================= Technologies Section ================= */
+/* ================= Technologies Section ================= */
+.technologies {
+    text-align: center;
+    padding: 50px 20px;
+    background-color: #fff;
+}
+
+.technologies h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: #0b1e5c;
+}
+/* Marquee container */
+.tech-marquee {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    
+    /* Add fading at edges */
+    -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1) 10%, rgba(0,0,0,1) 90%, rgba(0,0,0,0));
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-image: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1) 10%, rgba(0,0,0,1) 90%, rgba(0,0,0,0));
+    mask-repeat: no-repeat;
+    mask-size: 100% 100%;
+}
+
+/* Logos wrapper */
+.tech-logos {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    animation: scrollReset 13s linear infinite; /* adjust speed */
+}
+
+/* Make all logos the same size */
+.tech-logos img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+}
+
+/* Resetting scroll animation */
+@keyframes scrollReset {
+    0% {
+        transform: translateX(0); /* start at original position */
+    }
+    100% {
+        transform: translateX(-100%); /* move all logos completely left */
+    }
+}
+
+/* ================= Animations ================= */
+@keyframes fadeOut {
+    0% { opacity: 1; transform: scale(1); }
+    100% { opacity: 0; transform: scale(1.2); }
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes slideUp {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
